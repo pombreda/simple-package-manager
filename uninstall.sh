@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # uninstall.sh - un-installation script for spm package.
 # Copyright (C) 2011, Zachary Scott
 #
@@ -23,8 +22,6 @@ files="spm-create spm-install spm-uninstall spm-get"
 for file in $files; do
     rm /usr/bin/$file
 done
-
-# $Log$
 
 # EOF
 

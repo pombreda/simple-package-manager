@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # spm-common - simple package manager common functions
 # Copyright (C) 2011, Zachary Scott
 #
@@ -152,8 +151,6 @@ runPackage() {
     return 0 
     
 }
-
-# $Log$
 
 # EOF
 

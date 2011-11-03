@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # spm-create - Creates a new spm package
 # Copyright (C) 2011, Zachary Scott
 #
@@ -112,8 +111,6 @@ fi
 
 # create the given package
 create "$@"
-
-# $Log$
 
 # EOF
 

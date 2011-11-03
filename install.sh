@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # install.sh - installation script for spm package.
 # Copyright (C) 2011, Zachary Scott
 #
@@ -64,8 +63,6 @@ if [ $errorFlag -ne 0 ]; then
         cp $file /usr/bin
     done
 fi
-
-# $Log$
 
 # EOF
 

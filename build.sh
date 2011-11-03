@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # build.sh - build script for spm package.
 # Copyright (C) 2011, Zachary Scott
 #
@@ -18,8 +17,6 @@
 
 mkdir bin
 make all
-
-# $Log$
 
 # EOF
 

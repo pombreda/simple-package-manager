@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # spm-install - installs a spm package.
 # Copyright (C) 2011, Zachary Scott
 #
@@ -74,8 +73,6 @@ for arg; do
     closePackage
 
 done
-
-# $Log$
 
 # EOF
 

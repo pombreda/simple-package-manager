@@ -1,4 +1,3 @@
-# $Id$
 # Copyright (C) 2011, Zachary Scott
 #
 # This program is free software: you can redistribute it and/or modify
@@ -53,8 +52,6 @@ bin/spm-install: spm-install.sh bin/spm-common.sh
 bin/spm-uninstall: spm-uninstall.sh bin/spm-common.sh
 	cp spm-uninstall.sh bin/spm-uninstall
 	chmod +x bin/spm-uninstall
-
-# $Log$
 
 # EOF
 

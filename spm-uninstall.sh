@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # spm-uninstall - uninstall's a spm package.
 # Copyright (C) 2011, Zachary Scott
 #
@@ -32,7 +31,7 @@ Usage: $pname <package file ...>
 
 # un-install each package
 for arg; do
-
+    
     checkRegFile $arg || exit 1
     openPackage $arg
 
@@ -47,8 +46,6 @@ for arg; do
     closePackage
 
 done
-
-# $Log$
 
 # EOF
 

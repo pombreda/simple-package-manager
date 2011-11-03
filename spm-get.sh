@@ -1,5 +1,4 @@
 #!/bin/bash
-# $Id$
 # spm-get - Manages remote packages.
 # Copyright (C) 2011, Zachary Scott
 #
@@ -155,8 +154,6 @@ while [ $# -gt 0 ]; do
     shift
 
 done
-
-# $Log$
 
 # EOF
 

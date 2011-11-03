@@ -133,17 +133,18 @@ closePackage() {
 # runPackage [files to run ...]
 runPackage() {
 
-    cd $TMP_DIR
+    cd $TMP_DIR/data
 
     # execute given files in the package
     while [ $# -gt 0 ]; do
 
         if [ -x $1 ]; then
-            ./$1 $TMP_DIR/data
+            ../$1
             isfalse $? && return 1
         fi
 
         shift
+
     done
 
     cd - > /dev/null

@@ -1,0 +1,141 @@
+                     
+                     .oooooooo8   oooo.   .oooo  8ooooooooo. 
+                     88(          "8888o  o888"  "88(    )88
+                     '888oooooo.   88 888o8 88    888oooo88'  
+                             )88   88  888  88    88       
+                     o88oooo888'  d88b '8' d88b  d88b 
+
+                                By Zachary Scott 
+
+Simple Package Manager
+~~~~~~~~~~~~~~~~~~~~~~
+
+Simple Package Manager (SMP), as the name suggests is a simple package manager.
+It is intended to operate in similar way to existing package managers (e.g apt,
+dpkg, Pacman, etc). Instead of supporting a centralised package repository, SMP
+allows remote packages to be downloaded and installed automatically given thier
+URL (Universal Resource Locator). This allows a developer to package and 
+distribute their software via a package management system without having to 
+worry about the many different formats and Linux distrbution respositories.
+
+How to Build and Install
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to install this software you must have root privlige access. This might
+mean that you have to get an administrator to install it for you. The software 
+can be built and install simply by using th command
+
+su
+make install
+
+alternativley you can use sudo if you have it configured correctly:
+
+sudo make install
+
+How to Use SPM
+~~~~~~~~~~~~~~
+
+Commands
+========
+
+spm-create     Creates a new .spm package.
+spm-install    Installs a package.
+spm-uninstall  Un-installs a package.
+spm-get        Manages remote packages.
+
+Command Usage
+=============
+
+spm-create
+----------
+
+Usage: spm-create <package name> <install script> <un-install script> 
+              <build script> <license file> [package file ...]
+
+Note: 
+
+ * The install, uninstall, build script and license files are nessesary, but
+   they can be replaced with a '-', which creates an empty file. 
+
+ * The package name will be suffixed with the ".spm" extension if it is not 
+   already.
+
+
+spm-install
+-----------
+
+Usage: spm-install <package file ...>
+
+Note:
+
+ * You may reqiure root privileges (depending on the install script for the 
+   given package).
+
+
+spm-uninstall
+-------------
+
+Usage: spm-uninstall <package file ...>
+
+Note:
+
+ * You may reqiure root privileges (depending on the uninstall script for the 
+   given package).
+
+spm-get
+-------
+
+Usage: spm-get <mode> <package url ...>
+
+Mode:
+    get       - only download package (to ~/.spm).
+    install   - install the package.
+    uninstall - un-install the package.
+    delete    - delete the given package file (not un-install).
+    purge     - delete all downloaded packages (in ~/.spm).
+
+Note: 
+
+ * The curl program is used to provide this functionality and therefore the same
+   protocols and URL formats are supported.
+
+ * Downloaded packages are kept in under .spm/ in the current users home 
+   directory.
+
+ * You may reqiure root privileges (depending on the install script for the 
+   given package).
+
+.spm Format
+===========
+
+The .spm file format is simply a gzipped archive with a special filesystem 
+heirarchy. Their are four special purpose file (install, uninstall, build and 
+license) which are described below, as-well as a directory call data that holds
+the packages files. These files are as follows:
+
+install    An executable that installs the package.
+
+uninstall  The is an executable file that un-installs the package.
+
+build      This is an executable file that builds the package.
+
+license    This file contains the licensing terms and conditions of the package
+           This is set by the spm-create command when it makes a package.
+
+The first three of these files can be any executable code including scripts or 
+compiled programs.
+
+Development
+~~~~~~~~~~~
+
+The current code base for SMP is tiny (only ~600 lines!), and so developers are
+not required at the moment. However bug reports and fixes are welcomed and 
+should be submitted using the issue tracking system provided on the projects 
+google code website (http://http://code.google.com/p/simple-package-manager/).
+
+Contact
+~~~~~~~
+
+Name:  Zachary Scott
+Email: cthug.zs@gmail.com
+

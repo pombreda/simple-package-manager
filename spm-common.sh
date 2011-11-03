@@ -137,10 +137,8 @@ runPackage() {
     # execute given files in the package
     while [ $# -gt 0 ]; do
 
-        if [ -x $1 ]; then
-            ../$1
-            isfalse $? && return 1
-        fi
+        ../$1
+        isfalse $? && return 1
 
         shift
 

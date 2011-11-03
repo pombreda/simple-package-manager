@@ -57,7 +57,7 @@ checkDep "sha1sum"
 checkDep "curl"
 
 # install package files
-cd $1/bin
+cd bin
 if [ $errorFlag -ne 0 ]; then
     for file in *; do
         yes | rm /usr/bin/$file 2> /dev/null

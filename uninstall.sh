@@ -16,10 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# installed files
+files="spm-create spm-install spm-uninstall spm-get"
+
 # remove installed files
-cd $1/bin
-for file in *; do
-    rm /usr/bin/`basename $file`
+for file in $files; do
+    rm /usr/bin/$file
 done
 
 # $Log$

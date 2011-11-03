@@ -60,7 +60,7 @@ checkDep "curl"
 cd $1/bin
 if [ $errorFlag -ne 0 ]; then
     for file in *; do
-        rm /usr/bin/$file 2> /dev/null
+        yes | rm /usr/bin/$file 2> /dev/null
         cp $file /usr/bin
     done
 fi

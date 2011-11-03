@@ -140,12 +140,15 @@ runPackage() {
 
         if [ -x $1 ]; then
             ./$1 $TMP_DIR/data
+            isfalse $? && return 1
         fi
 
         shift
     done
 
     cd - > /dev/null
+
+    return 0 
     
 }
 

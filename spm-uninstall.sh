@@ -37,6 +37,12 @@ for arg; do
     openPackage $arg
 
     runPackage uninstall
+    if istrue $?; then
+        echo "Successfully un-installed!" > /dev/tty
+    else
+        error "Un-installation failed!" > /dev/tty
+        exit 1
+    fi
 
     closePackage
 

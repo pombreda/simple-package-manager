@@ -62,7 +62,14 @@ for arg; do
     openPackage $arg
 
     handleLicense
+    
     runPackage build install
+    if istrue $?; then
+        echo "Successfully installed!" > /dev/tty
+    else
+        error "Installation failed!" > /dev/tty
+        exit 1
+    fi
 
     closePackage
 

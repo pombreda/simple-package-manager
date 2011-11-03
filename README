@@ -23,7 +23,7 @@ How to Build and Install
 
 In order to install this software you must have root privlige access. This might
 mean that you have to get an administrator to install it for you. The software 
-can be built and install simply by using th command
+can be built and install simply by using the command:
 
 su
 make install

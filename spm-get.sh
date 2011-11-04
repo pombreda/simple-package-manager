@@ -109,6 +109,10 @@ while [ $# -gt 0 ]; do
         
             get $1
 
+            # check package for errors
+            openPackage $GET_DIR/$package
+            closePackage
+
             ;;
 
         # download and install package

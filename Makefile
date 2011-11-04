@@ -28,7 +28,12 @@ spm-dist: all install.sh uninstall.sh build.sh
 	bin/spm-create $(DIST_NAME).spm install.sh uninstall.sh build.sh COPYING README *.sh Makefile
 
 dist: clean
-	tar c Makefile COPYING README *.sh bin | gzip -c9 > $(DIST_NAME).tar.gz
+	mkdir $(DIST_NAME)
+	mkdir $(DIST_NAME)/bin $(DIST_NAME)/doc
+	cp Makefile COPYING README *.sh $(DIST_NAME)
+	cp doc/* $(DIST_NAME)/doc
+	tar c $(DIST_NAME) | gzip -c9 > $(DIST_NAME).tar.gz
+	rm -r $(DIST_NAME)
 
 install: spm-dist all
 	bin/spm-install $(DIST_NAME).spm

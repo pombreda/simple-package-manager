@@ -58,7 +58,7 @@ handleLicense() {
 for arg; do
 
     checkRegFile $arg || exit 1
-    openPackage $arg
+    openPackage $arg && exit 1
 
     handleLicense
     

@@ -33,7 +33,7 @@ Usage: $pname <package file ...>
 for arg; do
     
     checkRegFile $arg || exit 1
-    openPackage $arg
+    openPackage $arg && exit 1
 
     runPackage uninstall
     if istrue $?; then

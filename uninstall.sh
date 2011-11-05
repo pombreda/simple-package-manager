@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # installed files
-files="spm-create spm-install spm-uninstall spm-get"
+files="spm-{common.sh, create, install, uninstall, get}"
 
 # remove installed files
 for file in $files; do

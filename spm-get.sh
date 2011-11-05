@@ -70,7 +70,7 @@ get() {
 
 }
 
-# ensure GET_DIR directory existspackage=`getPackageName $1`
+# ensure GET_DIR directory exists
 if [ -e "$GET_DIR" ]; then
     if [ ! -d "$GET_DIR" ]; then
         error "$GET_DIR must be a directory!"

@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # include common functions
-. $(dirname $0)/spm-common.sh
+. "$(dirname $0)/spm-common.sh"
 
 # Prints usage information.
 usage() {
@@ -32,9 +32,9 @@ handleLicense() {
     local license
 
     # get license file from archive
-    license=$TMP_DIR/license
+    license="$TMP_DIR/license"
 
-    if [ -n "`cat $license`" ]; then
+    if [ -n "`cat "$license"`" ]; then
 
         ask "Do you want to view the license terms?"
         if istrue $?; then
@@ -57,8 +57,8 @@ handleLicense() {
 # install each package
 for arg; do
 
-    checkRegFile $arg || exit 1
-    openPackage $arg && exit 1
+    checkRegFile "$arg" || exit 1
+    openPackage "$arg" || exit 1
 
     handleLicense
     

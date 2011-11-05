@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # include common functions
-. $(dirname $0)/spm-common.sh
+. "$(dirname $0)/spm-common.sh"
 
 # Prints usage information.
 usage() {
@@ -32,8 +32,8 @@ Usage: $pname <package file ...>
 # un-install each package
 for arg; do
     
-    checkRegFile $arg || exit 1
-    openPackage $arg && exit 1
+    checkRegFile "$arg" || exit 1
+    openPackage "$arg" || exit 1
 
     runPackage uninstall
     if istrue $?; then

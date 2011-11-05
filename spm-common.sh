@@ -23,10 +23,10 @@ TMP_DIR=/tmp/spm-$$
 
 # hide bash's silly boolean values
 istrue() { 
-    return `test $1 -eq 0`
+    return `test "$1" -eq 0`
 }
 isfalse() { 
-    return `test $1 -ne 0`
+    return `test "$1" -ne 0`
 }
 
 # Prints an error message
@@ -45,11 +45,11 @@ error() {
 # checkRegFile <filename>
 checkRegFile() {
 
-    if [ ! -e $1 ]; then
+    if [ ! -e "$1" ]; then
         error "$1 does not exist!"
-    elif [ -d $1 ]; then
+    elif [ -d "$1" ]; then
         error "$1 is a directory!"
-    elif [ ! -f $1 ]; then
+    elif [ ! -f "$1" ]; then
         error "$1 is not a regular file!"
     else
         # file is a regular file
@@ -72,9 +72,9 @@ ask() {
         echo -n "$1 (y/n) " > /dev/tty
         read a
 
-        if [ "'$a'" == "yes" -o "$a" == "y" ]; then
+        if [ "$a" == "yes" -o "$a" == "y" ]; then
             return 0
-        elif [ "'$a'" == "no" -o "$a" == "n" ]; then
+        elif [ "$a" == "no" -o "$a" == "n" ]; then
             return 1
         fi
 
@@ -85,7 +85,7 @@ ask() {
 # Returns the absolute file name of the given file
 # getAbsoluteName <file>
 getAbsoluteName() {
-    cd `dirname $1`; echo `pwd`/`basename $1` ; cd - > /dev/null
+    cd `dirname "$1"`; echo "`pwd`/`basename "$1"`" ; cd - > /dev/null
 }
 
 # Opens an package for use with other commands
@@ -95,7 +95,7 @@ openPackage() {
     local package
 
     # get package name
-    package=`getAbsoluteName $1`
+    package=`getAbsoluteName "$1"`
     shift
 
     # ensure package is a regular file
@@ -104,35 +104,37 @@ openPackage() {
     fi
 
     # create temporary directory
-    if [ -e $TMP_DIR ]; then rm -r $TMP_DIR ; fi
-    mkdir $TMP_DIR
+    if [ -e "$TMP_DIR" ]; then rm -r "$TMP_DIR" ; fi
+    mkdir "$TMP_DIR"
 
-    cd $TMP_DIR
+    cd "$TMP_DIR"
 
     # extract package to temporary directory
-    gunzip -c $package | tar x 
+    gunzip -c "$package" | tar x 
 
     # check the integrity of the files
     sha1sum -c digest
     if isfalse $?; then
         error "File integrity check failed!"
-        exit 1
+        return 1
     fi
 
     cd - > /dev/null
+
+    return 0
 
 }
 
 # Closes the package opened with openPackage
 closePackage() {
-    rm -r $TMP_DIR
+    rm -r "$TMP_DIR"
 }
 
 # Runs the given file in a package
 # runPackage [files to run ...]
 runPackage() {
 
-    cd $TMP_DIR/data
+    cd "$TMP_DIR/data"
 
     # execute given files in the package
     while [ $# -gt 0 ]; do

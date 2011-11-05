@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # include common functions
-. $(dirname $0)/spm-common.sh
+. "$(dirname $0)/spm-common.sh"
 
 # Prints usage information.
 usage() {
@@ -38,32 +38,32 @@ create() {
     local package
 
     # create temporary directory
-    if [ -e $TMP_DIR ]; then rm -r $TMP_DIR ; fi
-    mkdir $TMP_DIR
+    if [ -e "$TMP_DIR" ]; then rm -r "$TMP_DIR" ; fi
+    mkdir "$TMP_DIR"
 
     # get package name
-    package=`getAbsoluteName $1`
+    package=`getAbsoluteName "$1"`
     if [ "${package##*.}" != "spm" ]; then
-        package=${package}.spm
+        package="${package}.spm"
     fi
     shift
 
     # add scripts and digest files
     for file in "install" "uninstall" "build" "license"; do
 
-        if [ $1 == "-" ]; then
-            touch $TMP_DIR/$file
+        if [ "$1" == "-" ]; then
+            touch "$TMP_DIR/$file"
         else
 
             # check that given file exists
-            checkRegFile $1
+            checkRegFile "$1"
             if isfalse $?; then 
                 exit 1
             fi
         
             # create file
-            cp $1 $TMP_DIR/$file 
-            chmod +x $TMP_DIR/$file
+            cp "$1" "$TMP_DIR/$file"
+            chmod +x "$TMP_DIR/$file"
         
         fi
 
@@ -72,35 +72,35 @@ create() {
     done
 
     # add files to package
-    mkdir $TMP_DIR/data
+    mkdir "$TMP_DIR/data"
     while [ $# -gt 0 ]; do
 
-        newfile=$TMP_DIR/data/$1
+        newfile="$TMP_DIR/data/$1"
 
         # make files directory path if nessesary
-        dir=`dirname $newfile`
-        if [ ! -d $dir ]; then
-            mkdir -p $dir
+        dir=`dirname "$newfile"`
+        if [ ! -d "$dir" ]; then
+            mkdir -p "$dir"
         fi
 
-        cp -r $1 $newfile
+        cp -r "$1" "$newfile"
         
         shift
 
     done
     
-    cd $TMP_DIR
+    cd "$TMP_DIR"
     
     # create digest with each files sha1 hash
-    sha1sum -b `find . -type f -name '*'` > $TMP_DIR/digest
+    sha1sum -b `find . -type f -name '*'` > "$TMP_DIR/digest"
 
     # create the package
-    tar c * | gzip -c9 > $package
+    tar c * | gzip -c9 > "$package"
     
     cd - > /dev/null
 
     # remove temporary files and directory
-    rm -r $TMP_DIR
+    rm -r "$TMP_DIR"
 
 }
 

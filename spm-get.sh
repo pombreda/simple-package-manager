@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # include common functions
-. $(dirname $0)/spm-common.sh
+. "$(dirname $0)/spm-common.sh"
 
 # directory packages are downloaded to
 GET_DIR=~/.spm
@@ -42,7 +42,7 @@ Mode:
 # Returns the name of the package for the given URL
 # getPackageName <package url>
 getPackageName() {
-    echo ${1##*/}
+    echo "${1##*/}"
 }
 
 # Gets the given package from the given URL, if it has not already been 
@@ -52,13 +52,13 @@ get() {
 
     local package
     
-    package=`getPackageName $1`
+    package=`getPackageName "$1"`
     if [ ! -e "$GET_DIR/$package" ]; then
 
         ask "Do you want to download the package $package?"
         if istrue $?; then
 
-            curl -o "$GET_DIR/$package" $1
+            curl -o "$GET_DIR/$package" "$1"
             if isfalse $?; then
                 error "Cannot get package $package!"
                 exit 1
@@ -71,22 +71,22 @@ get() {
 }
 
 # ensure GET_DIR directory existspackage=`getPackageName $1`
-if [ -e $GET_DIR ]; then
-    if [ ! -d $GET_DIR ]; then
+if [ -e "$GET_DIR" ]; then
+    if [ ! -d "$GET_DIR" ]; then
         error "$GET_DIR must be a directory!"
         exit 1
     fi
 else
-    mkdir $GET_DIR
+    mkdir "$GET_DIR"
 fi
 
 # ensure that there is enough arguments
 [ $# -lt 1 ] && usage
 
 # get mode and package name
-mode=$1
+mode="$1"
 shift
-package=`getPackageName $1`
+package=`getPackageName "$1"`
 
 # handle 
 case $mode in
@@ -96,10 +96,10 @@ case $mode in
    
         [ $# -lt 1 ] && usage
 
-        get $1
+        get "$1"
 
         # check package for errors
-        openPackage $GET_DIR/$package && exit 1
+        openPackage "$GET_DIR/$package" && exit 1
         closePackage
 
         ;;
@@ -109,8 +109,8 @@ case $mode in
 
         [ $# -lt 1 ] && usage
 
-        get $1
-        spm-install $GET_DIR/$package
+        get "$1"
+        spm-install "$GET_DIR/$package"
 
         ;;
 
@@ -119,8 +119,8 @@ case $mode in
 
         [ $# -lt 1 ] && usage
 
-        get $1
-        spm-uninstall $GET_DIR/$package
+        get "$1"
+        spm-uninstall "$GET_DIR/$package"
 
         ;;
 
@@ -133,7 +133,7 @@ case $mode in
             
             ask "Are you sure you want to delete \"$package\"?"
             if istrue $?; then
-                rm $GET_DIR/$package
+                rm "$GET_DIR/$package"
             fi
 
         else
@@ -149,7 +149,7 @@ case $mode in
 
         ask "Are you sure you want to delete all downloaded packages?"
         if istrue $?; then
-            rm $GET_DIR/*
+            rm "$GET_DIR/*"
         fi
 
         ;;
@@ -167,7 +167,7 @@ esac
 # handle remaining command line arguments
 shift
 if [ $# -ge 1 ]; then
-    exec $mode $2
+    exec $mode "$2"
     exit
 fi
 

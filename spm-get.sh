@@ -70,7 +70,7 @@ get() {
 
 }
 
-# ensure GET_DIR directory exists
+# ensure GET_DIR directory existspackage=`getPackageName $1`
 if [ -e $GET_DIR ]; then
     if [ ! -d $GET_DIR ]; then
         error "$GET_DIR must be a directory!"
@@ -83,81 +83,93 @@ fi
 # ensure that there is enough arguments
 [ $# -lt 1 ] && usage
 
-# get mode
+# get mode and package name
 mode=$1
 shift
+package=`getPackageName $1`
 
-# handle purge mode
-if [ "$mode" == "purge" ]; then
-    ask "Are you sure you want to delete all downloaded packages?"
-    if istrue $?; then
-        rm $GET_DIR/*
-    fi
-    exit 0
-fi
+# handle 
+case $mode in
 
-# handle command line arguments
-[ $# -lt 1 ] && usage
-while [ $# -gt 0 ]; do
+    # only download package
+    get)
+   
+        [ $# -lt 1 ] && usage
 
-    package=`getPackageName $1`
+        get $1
 
-    case $mode in
+        # check package for errors
+        openPackage $GET_DIR/$package && exit 1
+        closePackage
 
-        # only download package
-        get)
-        
-            get $1
+        ;;
 
-            # check package for errors
-            openPackage $GET_DIR/$package && exit 1
-            closePackage
+    # download and install package
+    install)
 
-            ;;
+        [ $# -lt 1 ] && usage
 
-        # download and install package
-        install)
+        get $1
+        spm-install $GET_DIR/$package
 
-            get $1
-            spm-install $GET_DIR/$package
+        ;;
 
-            ;;
+    # download and un-install package
+    uninstall)
 
-        # download and un-install package
-        uninstall)
+        [ $# -lt 1 ] && usage
 
-            get $1
-            spm-uninstall $GET_DIR/$package
+        get $1
+        spm-uninstall $GET_DIR/$package
 
-            ;;
+        ;;
 
-        # delete the given package
-        delete)
+    # delete the given package
+    delete)
 
-            if [ -e "$package" ]; then
-                
-                ask "Are you sure you want to delete \"$package\"?"
-                if istrue $?; then
-                    rm $GET_DIR/$package
-                fi
+        [ $# -lt 1 ] && usage
 
-            else
-                error "No such package $package!"
+        if [ -e "$package" ]; then
+            
+            ask "Are you sure you want to delete \"$package\"?"
+            if istrue $?; then
+                rm $GET_DIR/$package
             fi
 
-            ;;
+        else
+            error "No such package $package!"
+        fi
 
-        # unknwon mode
-        *)
-            error "Unknown mode $mode"
-            exit 1
-            ;;
+        ;;
 
-    esac
+    # delete all downloaded packages
+    purge)
 
-    shift
+        [ $# -gt 0 ] && usage
 
-done
+        ask "Are you sure you want to delete all downloaded packages?"
+        if istrue $?; then
+            rm $GET_DIR/*
+        fi
+
+        ;;
+
+    # unknown mode
+    *)
+
+        error "Unknown mode $mode"
+        exit 1
+
+        ;;
+
+esac
+
+# handle remaining command line arguments
+shift
+if [ $# -ge 1 ]; then
+    exec $mode $2
+    exit
+fi
 
 # EOF
 

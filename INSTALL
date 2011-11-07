@@ -1,0 +1,21 @@
+
+How to Build and Install
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to install this software you must have root privlige access. This might
+mean that you have to get an administrator to install it for you. The software 
+can be built and install simply by using the command:
+
+su
+make install
+
+alternativley you can use sudo if you have it configured correctly:
+
+sudo make install
+
+Contact
+~~~~~~~
+
+Name:  Zachary Scott
+Email: cthug.zs@gmail.com
+

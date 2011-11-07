@@ -82,6 +82,20 @@ Note:
  * You may reqiure root privileges (depending on the uninstall script for the 
    given package).
 
+spm-update
+----------
+
+Usage: spm-update <package file ...>
+
+Note:
+
+ * The update is performed by running the uninstall and then the install scripts
+   of the new package.
+
+ * You may reqiure root privileges (depending on the uninstall script for the 
+   given package).
+
+
 spm-get
 -------
 

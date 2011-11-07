@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # include common functions
-. "$(dirname $0)/spm-common.sh"
+. "`dirname $0`/spm-common.sh"
 
 # directory packages are downloaded to
 GET_DIR=~/.spm

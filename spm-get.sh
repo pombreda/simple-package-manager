@@ -124,6 +124,16 @@ case $mode in
 
         ;;
 
+    # download and update package
+    update)
+
+        [ $# -lt 1 ] && usage
+
+        get "$1"
+        spm-update "$GET_DIR/$package"
+
+        ;;
+
     # delete the given package
     delete)
 

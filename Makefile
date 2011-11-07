@@ -18,7 +18,7 @@ DIST_NAME=spm-0.1.1-alpha
 
 .PHONY: all clean spm-dist dist install
 
-all: bin/spm-create bin/spm-get bin/spm-install bin/spm-uninstall
+all: bin/spm-create bin/spm-get bin/spm-install bin/spm-uninstall bin/spm-update
 
 clean:
 	-yes | rm bin/*
@@ -57,6 +57,10 @@ bin/spm-install: spm-install.sh bin/spm-common.sh
 bin/spm-uninstall: spm-uninstall.sh bin/spm-common.sh
 	cp spm-uninstall.sh bin/spm-uninstall
 	chmod +x bin/spm-uninstall
+
+bin/spm-update: spm-update.sh bin/spm-common.sh
+	cp spm-update.sh bin/spm-update
+	chmod +x bin/spm-update
 
 # EOF
 

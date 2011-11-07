@@ -68,7 +68,7 @@ Usage: spm-install <package file ...>
 
 Note:
 
- * You may reqiure root privileges (depending on the install script for the 
+ * You may require root privileges (depending on the install script for the 
    given package).
 
 
@@ -79,8 +79,9 @@ Usage: spm-uninstall <package file ...>
 
 Note:
 
- * You may reqiure root privileges (depending on the uninstall script for the 
+ * You may require root privileges (depending on the uninstall script for the 
    given package).
+
 
 spm-update
 ----------
@@ -92,7 +93,7 @@ Note:
  * The update is performed by running the uninstall and then the install scripts
    of the new package.
 
- * You may reqiure root privileges (depending on the uninstall script for the 
+ * You may require root privileges (depending on the uninstall script for the 
    given package).
 
 
@@ -116,7 +117,7 @@ Note:
  * Downloaded packages are kept in under .spm/ in the current users home 
    directory.
 
- * You may reqiure root privileges (depending on the install script for the 
+ * You may require root privileges (depending on the install script for the 
    given package).
 
 .spm Format

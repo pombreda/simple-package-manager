@@ -35,7 +35,7 @@ error() {
 
     echo -n "$pname: error: " >&2
     for arg; do
-        echo -n $arg >&2
+        echo -n "$arg" >&2
     done
     echo >&2
 

@@ -15,11 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# installed files
-files="spm-{common.sh, create, install, uninstall, get}"
-
 # remove installed files
-for file in $files; do
+for file in spm-{common.sh,create,install,uninstall,update,get}; do
     rm /usr/bin/$file
 done
 

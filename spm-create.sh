@@ -63,8 +63,16 @@ create() {
         
             # create file
             cp "$1" "$TMP_DIR/$file"
-            chmod +x "$TMP_DIR/$file"
-        
+            
+            # set permissions for file
+            if [ "$file" == "license" ]; then
+                # set read only permissions
+                chmod 444 "$TMP_DIR/$file"
+            else
+                # set read and execute permissions
+                chmod 555 "$TMP_DIR/$file"
+            fi
+
         fi
 
         shift

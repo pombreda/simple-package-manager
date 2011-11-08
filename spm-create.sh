@@ -26,7 +26,7 @@ Usage: $pname <package name> <install script> <un-install script>
               <build script> <license file> [package file ...]
     " >&2
 
-    exit 0
+    true ; exit
 
 }
 
@@ -57,8 +57,8 @@ create() {
 
             # check that given file exists
             checkRegFile "$1"
-            if isfalse $?; then 
-                exit 1
+            if isFalse $?; then 
+                false ; exit
             fi
         
             # create file
@@ -113,9 +113,7 @@ create() {
 }
 
 # check that there is enough arguments
-if [ $# -lt 2 ]; then
-    usage
-fi
+[ $# -lt 2 ] && usage
 
 # create the given package
 create "$@"

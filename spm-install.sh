@@ -23,7 +23,7 @@ usage() {
     echo "
 Usage: $pname <package file ...>
 " >&2
-    exit 0
+    true ; exit
 }
 
 # Prompts user to view and accepts the terms of the packages license.
@@ -37,14 +37,14 @@ handleLicense() {
     if [ -n "`cat "$license"`" ]; then
 
         ask "Do you want to view the license terms?"
-        if istrue $?; then
+        if isTrue $?; then
             less "$license"
         fi
 
         ask "Do you accept the license terms?"
-        if isfalse $?; then
+        if isFalse $?; then
             error "License terms must be accepted to install package!"
-            exit 1
+            false ; exit
         fi
 
     fi
@@ -57,17 +57,17 @@ handleLicense() {
 # install each package
 for arg; do
 
-    checkRegFile "$arg" || exit 1
-    openPackage "$arg" || exit 1
+    checkRegFile "$arg" || { false ; exit ; }
+    openPackage "$arg" || { false ; exit ; }
 
     handleLicense
     
     runPackage build install
-    if istrue $?; then
+    if isTrue $?; then
         echo "Successfully installed!" > /dev/tty
     else
         error "Installation failed!" > /dev/tty
-        exit 1
+        false ; exit
     fi
 
     closePackage

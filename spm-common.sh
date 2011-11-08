@@ -22,10 +22,16 @@ pname=${0##*/}
 TMP_DIR=/tmp/spm-$$
 
 # hide bash's silly boolean values
-istrue() { 
+setTrue() {
+    $1=0
+}
+setFalse() {
+    $1=1
+}
+isTrue() { 
     return `test "$1" -eq 0`
 }
-isfalse() { 
+isFalse() { 
     return `test "$1" -ne 0`
 }
 
@@ -53,11 +59,11 @@ checkRegFile() {
         error "$1 is not a regular file!"
     else
         # file is a regular file
-        return 0
+        true ; return
     fi
 
     # file is not a regular file
-    return 1
+    false ; return
 
 }
 
@@ -73,9 +79,9 @@ ask() {
         read a
 
         if [ "$a" == "yes" -o "$a" == "y" ]; then
-            return 0
+            true ; return
         elif [ "$a" == "no" -o "$a" == "n" ]; then
-            return 1
+            false ; return
         fi
 
     done
@@ -99,8 +105,8 @@ openPackage() {
     shift
 
     # ensure package is a regular file
-    if isfalse $?; then
-        return 1
+    if isFalse $?; then
+        false ; return
     fi
 
     # create temporary directory
@@ -114,14 +120,14 @@ openPackage() {
 
     # check the integrity of the files
     sha1sum -c digest
-    if isfalse $?; then
+    if isFalse $?; then
         error "File integrity check failed!"
-        return 1
+        false ; return
     fi
 
     cd - > /dev/null
 
-    return 0
+    true ; return
 
 }
 
@@ -140,7 +146,9 @@ runPackage() {
     while [ $# -gt 0 ]; do
 
         ../$1
-        isfalse $? && return 1
+        if isFalse $?; then
+            false ; return
+        fi
 
         shift
 
@@ -148,7 +156,7 @@ runPackage() {
 
     cd - > /dev/null
 
-    return 0 
+    true ; return 
     
 }
 

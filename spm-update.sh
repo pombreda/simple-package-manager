@@ -23,7 +23,7 @@ usage() {
     echo "
 Usage: $pname <package file ...>
 " >&2
-    exit 0
+    true ; exit
 }
 
 # ensure that there is enough arguments
@@ -32,15 +32,15 @@ Usage: $pname <package file ...>
 # update each package
 for arg; do
     
-    checkRegFile "$arg" || exit 1
-    openPackage "$arg" || exit 1
+    checkRegFile "$arg" || { false ; exit ; }
+    openPackage "$arg" || { false ; exit ; }
 
     runPackage uninstall install
-    if istrue $?; then
+    if isTrue $?; then
         echo "Successfully updated!" > /dev/tty
     else
         error "Update failed!" > /dev/tty
-        exit 1
+        false ; exit
     fi
 
     closePackage

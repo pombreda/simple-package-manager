@@ -23,7 +23,7 @@ usage() {
     echo "
 Usage: $pname <package file ...>
 " >&2
-    exit 0
+    true ; exit
 }
 
 # ensure that there is enough arguments
@@ -32,15 +32,15 @@ Usage: $pname <package file ...>
 # un-install each package
 for arg; do
     
-    checkRegFile "$arg" || exit 1
-    openPackage "$arg" || exit 1
+    checkRegFile "$arg" || { false ; exit ; }
+    openPackage "$arg" || { false ; exit ; }
 
     runPackage uninstall
-    if istrue $?; then
+    if isTrue $?; then
         echo "Successfully un-installed!" > /dev/tty
     else
         error "Un-installation failed!" > /dev/tty
-        exit 1
+        false ; exit
     fi
 
     closePackage

@@ -35,7 +35,7 @@ Mode:
     purge     - delete all downloaded packages (in $GET_DIR).
 " >&2
 
-    exit 0
+    true ; exit
 
 }
 
@@ -56,12 +56,12 @@ get() {
     if [ ! -e "$GET_DIR/$package" ]; then
 
         ask "Do you want to download the package $package?"
-        if istrue $?; then
+        if isTrue $?; then
 
             curl -o "$GET_DIR/$package" "$1"
-            if isfalse $?; then
+            if isFalse $?; then
                 error "Cannot get package $package!"
-                exit 1
+                false ; exit
             fi
 
         fi
@@ -74,7 +74,7 @@ get() {
 if [ -e "$GET_DIR" ]; then
     if [ ! -d "$GET_DIR" ]; then
         error "$GET_DIR must be a directory!"
-        exit 1
+        false ; exit
     fi
 else
     mkdir "$GET_DIR"
@@ -99,7 +99,7 @@ case $mode in
         get "$1"
 
         # check package for errors
-        openPackage "$GET_DIR/$package" && exit 1
+        openPackage "$GET_DIR/$package" && { false ; exit ; }
         closePackage
 
         ;;
@@ -142,7 +142,7 @@ case $mode in
         if [ -e "$package" ]; then
             
             ask "Are you sure you want to delete \"$package\"?"
-            if istrue $?; then
+            if isTrue $?; then
                 rm "$GET_DIR/$package"
             fi
 
@@ -158,7 +158,7 @@ case $mode in
         [ $# -gt 0 ] && usage
 
         ask "Are you sure you want to delete all downloaded packages?"
-        if istrue $?; then
+        if isTrue $?; then
             rm "$GET_DIR/*"
         fi
 
@@ -168,7 +168,7 @@ case $mode in
     *)
 
         error "Unknown mode $mode"
-        exit 1
+        false ; exit
 
         ;;
 
@@ -179,6 +179,8 @@ shift
 if [ $# -ge 1 ]; then
     exec $mode "$2"
     exit
+else
+    true ; exit
 fi
 
 # EOF

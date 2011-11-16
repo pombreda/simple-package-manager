@@ -134,10 +134,15 @@ compiled programs.
 Development
 ~~~~~~~~~~~
 
-The current code base for SMP is tiny (only ~700 lines!), and so developers are
+The current code base for SPM is tiny (only ~700 lines!), and so developers are
 not required at the moment. However bug reports and fixes are welcomed and 
 should be submitted using the issue tracking system provided on the projects 
 google code website (http://http://code.google.com/p/simple-package-manager/).
+
+Help would be greatly appreciated in creating and managing the small SPM 
+package repository (http://code.google.com/p/spm-package-repository/). Any 
+packages should be sent to Zachary Scott at cthug.zs@gmail.com. See the 
+aforementioned website for more information.
 
 Contact
 ~~~~~~~

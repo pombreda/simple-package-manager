@@ -31,6 +31,7 @@ Mode:
     get       - only download package (to $GET_DIR).
     install   - install the package.
     uninstall - un-install the package.
+    update    - update an existing package.
     delete    - delete the given package file (not un-install).
     purge     - delete all downloaded packages (in $GET_DIR).
 " >&2

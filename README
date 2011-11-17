@@ -32,6 +32,7 @@ Commands
 spm-create     Creates a new .spm package.
 spm-install    Installs a package.
 spm-uninstall  Un-installs a package.
+spm-update     Updates an existing package.
 spm-get        Manages remote packages.
 
 Command Usage
@@ -81,8 +82,8 @@ Usage: spm-update <package file ...>
 
 Note:
 
- * The update is performed by running the uninstall and then the install scripts
-   of the new package.
+ * The update is performed by running the uninstall and then re-installs the 
+   package.
 
  * You may require root privileges (depending on the uninstall script for the 
    given package).
@@ -97,6 +98,7 @@ Mode:
     get       - only download package (to ~/.spm).
     install   - install the package.
     uninstall - un-install the package.
+    update    - update an existing package.
     delete    - delete the given package file (not un-install).
     purge     - delete all downloaded packages (in ~/.spm).
 

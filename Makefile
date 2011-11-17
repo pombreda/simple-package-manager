@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # distribution archive name
-DIST_NAME=spm-0.1.1-alpha
+DIST_NAME=spm-0.1.1
 
 .PHONY: all clean spm-dist dist install
 

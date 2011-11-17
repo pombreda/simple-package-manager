@@ -10,9 +10,9 @@
 Simple Package Manager
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Simple Package Manager (SMP), as the name suggests is a simple package manager.
+Simple Package Manager (SPM), as the name suggests is a simple package manager.
 It is intended to operate in similar way to existing package managers (e.g apt,
-dpkg, Pacman, etc). Instead of supporting a centralised package repository, SMP
+dpkg, Pacman, etc). Instead of supporting a centralised package repository, SPM
 allows remote packages to be downloaded and installed automatically given thier
 URL (Universal Resource Locator). This allows a developer to package and 
 distribute their software via a package management system without having to 

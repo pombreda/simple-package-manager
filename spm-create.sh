@@ -22,7 +22,7 @@
 usage() {
 
     echo "
-Usage: $pname <package name> <install script> <un-install script> 
+Usage: $pname <package name> <install script> <un-install script>
               <build script> <license file> [package file ...]
     " >&2
 
@@ -31,11 +31,9 @@ Usage: $pname <package name> <install script> <un-install script>
 }
 
 # Create the specified package
-# create <package name> <install script> <un-install script> <build script> 
+# create <package name> <install script> <un-install script> <build script>
 #        <license file> [files ...]
 create() {
-
-    local package
 
     # create temporary directory
     if [ -e "$TMP_DIR" ]; then rm -r "$TMP_DIR" ; fi
@@ -57,13 +55,13 @@ create() {
 
             # check that given file exists
             checkRegFile "$1"
-            if isFalse $?; then 
+            if isFalse $?; then
                 false ; exit
             fi
-        
+
             # create file
             cp "$1" "$TMP_DIR/$file"
-            
+
             # set permissions for file
             if [ "$file" == "license" ]; then
                 # set read only permissions
@@ -92,23 +90,26 @@ create() {
         fi
 
         cp -r "$1" "$newfile"
-        
+
         shift
 
     done
-    
+
     cd "$TMP_DIR"
-    
+
     # create digest with each files sha1 hash
-    sha1sum -b `find . -type f -name '*'` > "$TMP_DIR/digest"
+    echo -n "" > digest-tmp
+    find -type f -exec sha1sum -b >> digest-tmp \{\} +
+    cat digest-tmp | sed '/.*digest/ d' > digest # remove the digest files entry
+    rm digest-tmp
 
     # create the package
     tar c * | gzip -c9 > "$package"
-    
+
     cd - > /dev/null
 
     # remove temporary files and directory
-    rm -r "$TMP_DIR"
+    yes | rm -r "$TMP_DIR"
 
 }
 

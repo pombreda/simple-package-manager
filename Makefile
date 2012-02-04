@@ -30,7 +30,7 @@ spm-dist: all install.sh uninstall.sh build.sh
 dist: spm-dist
 	mkdir $(DIST_NAME)
 	mkdir $(DIST_NAME)/bin $(DIST_NAME)/doc
-	cp Makefile COPYING README *.sh $(DIST_NAME)
+	cp Makefile COPYING README TODO *.sh $(DIST_NAME)
 	cp doc/* $(DIST_NAME)/doc
 	tar c $(DIST_NAME) | gzip -c9 > $(DIST_NAME).tar.gz
 	rm -r $(DIST_NAME)

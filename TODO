@@ -2,14 +2,14 @@
 SPM TODO List
 ~~~~~~~~~~~~~
 
-This file contains work that needs, or should be done on the codebase. If you 
+This file contains work that needs, or should be done on the codebase. If you
 have any suggestions, bug report and/or fixes please feel free to email me (the
 project owner) at zscott@zscott-dev.info. You can also use the issue management
 system of the google code homepage (code.google.com/p/simple-package-manager/).
 
 ================================================================================
 
-Add repository database - Zachary Scott <zscott@zscott-dev.info>
+Add repository database - FEATURE - Zachary Scott <zscott@zscott-dev.info>
 
 Status: incomplete
 
@@ -19,7 +19,7 @@ This feature would have to be configurable in the case that the server moves,
 or other repos are created.
 
 Implementation Suggestions:
-Add another command to spm-get (called search, maybe) to search for a package 
+Add another command to spm-get (called search, maybe) to search for a package
 from a list file on the server (this can be done over HTTP). Then download the
 package from its name relative to the repo server. For example
 
@@ -40,26 +40,39 @@ Status: incomplete
 
 Description:
 The compliation, installation and packaging of the GUI code needs to be added to
-the Makefile. It should NOT be default to compile OR install the gui, until the 
-next version is released. 
+the Makefile. It should NOT be default to compile OR install the gui, until the
+next version is released.
 
 ================================================================================
 
-GUI performance optimisation - IMPORTANT - 
+GUI performance optimisation - IMPORTANT -
     Zachary Scott <zscott@zscott-dev.info>
 
 Status: incomplete
 
 Description:
-The performance of the GUI system needs to be heavily optimised. The current 
+The performance of the GUI system needs to be heavily optimised. The current
 package reader system is un-acceptably slow. Once this is complete and the GUI
 is stable enough I will release the next version.
 
 Implementation Suggestions:
 The package should be extracted using (the much faster) tar program. The program
-can then work off the directory structure. Much of the spm.format classes and 
+can then work off the directory structure. Much of the spm.format classes and
 interfaces can be kept the same in this case but thier implementation would have
 to be heavily modified.
 
 ================================================================================
 
+GUI Documentation - IMPORTANT - Zachary Scott <zscott@zscott-dev.info>
+
+Status: incomplete
+
+Description:
+The GUI code is fairly well documented using Javadoc but the system usage needs
+to be documented and help files created.
+
+Implementation Suggestions:
+The docuemntation should be created as part of the the wiki on the projects
+google code page (code.google.com/p/simple-package-manager/).
+
+================================================================================

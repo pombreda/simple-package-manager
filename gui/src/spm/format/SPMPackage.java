@@ -72,6 +72,12 @@ public final class SPMPackage {
         setFile(file);
     }
     
+    /**
+     * Creates a thread to read a package from the given file.
+     * 
+     * @param file the file to be read.
+     * @return the thread that will read the file.
+     */
     public Thread newReadThread(final File file) {
         
         Thread readThread = new Thread() {
@@ -145,6 +151,12 @@ public final class SPMPackage {
         
     }
     
+    /**
+     * Creates a thread to read a package from the given file.
+     * 
+     * @param filename the name of the file to read.
+     * @return the thread that will read the file.
+     */
     public Thread newReadThread(final String filename) {
         return newReadThread(new File(filename));
     }

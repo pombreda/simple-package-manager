@@ -385,79 +385,14 @@ public final class PrimaryFrame extends JFrame {
         
         packageArchive = null;
         
-        final SPMPackage archive = new SPMPackage();
-        
-        // read package in separate thread
-        final Frame parent = this;
-        Thread readThread = new Thread() {
-        
-            /** Runs the thread. */
-            @Override
-            public void run() {
-
-                // attempt to read package archive
-                try {
-
-                    archive.read(file);
-
-                } catch (FileNotFoundException ex) {
-
-                    StringBuilder msg = new StringBuilder();
-
-                    msg.append("The file \"");
-                    msg.append(file.getPath());
-                    msg.append("\" does not exist!");
-
-                    showErrorDialog(parent, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
-
-                } catch (IOException ex) {
-
-                    StringBuilder msg = new StringBuilder();
-
-                    msg.append("Cannot read from \"");
-                    msg.append(file.getPath());
-                    msg.append("\"! \n");
-                    msg.append(ex.getMessage());
-
-                    showErrorDialog(parent, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
-
-                } catch (InvalidPackageException ex) {
-
-                    StringBuilder msg = new StringBuilder();
-
-                    msg.append("The package \"");
-                    msg.append(file.getPath());
-                    msg.append("\" is not a valid package! \n");
-                    msg.append(ex.getMessage());
-
-                    showErrorDialog(parent, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
-
-                } catch (SPMDigestException ex) {
-
-                    StringBuilder msg = new StringBuilder();
-
-                    msg.append("The package \"");
-                    msg.append(file.getPath());
-                    msg.append("\" indcates an error. This could mean that the package has become corrupted.");
-
-                    showErrorDialog(parent, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
-
-                }
-                
-            }
-                
-        };
-        
-        // start the thread that reads the package
-        readThread.setPriority(Thread.MAX_PRIORITY);
+        // read the package archive
+        SPMPackage archive = new SPMPackage();
+        Thread readThread = archive.newReadThread(file);
         readThread.start();
-        
+
+        // display a loading dialog while the package is read
         showLoadingDialog(this, readThread, "Loading " + file.getName());
-        
+
         // update the package that this frame represents
         packageArchive = archive;
         updateValues();

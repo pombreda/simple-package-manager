@@ -19,6 +19,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
+import spm.gui.Util;
 
 import spm.format.tar.*;
 
@@ -69,6 +70,83 @@ public final class SPMPackage {
      */
     public SPMPackage(final String name) {
         setFile(file);
+    }
+    
+    public Thread newReadThread(final File file) {
+        
+        Thread readThread = new Thread() {
+        
+            {
+                setPriority(Thread.MAX_PRIORITY);
+            }
+            
+            /** Runs the thread. */
+            @Override
+            public void run() {
+
+                // attempt to read package archive
+                try {
+
+                    read(file);
+
+                } catch (FileNotFoundException ex) {
+
+                    StringBuilder msg = new StringBuilder();
+
+                    msg.append("The file \"");
+                    msg.append(file.getPath());
+                    msg.append("\" does not exist!");
+
+                    Util.showErrorDialog(null, msg.toString());
+                    logger.log(Level.INFO, msg.toString(), ex);
+
+                } catch (IOException ex) {
+
+                    StringBuilder msg = new StringBuilder();
+
+                    msg.append("Cannot read from \"");
+                    msg.append(file.getPath());
+                    msg.append("\"! \n");
+                    msg.append(ex.getMessage());
+
+                    Util.showErrorDialog(null, msg.toString());
+                    logger.log(Level.INFO, msg.toString(), ex);
+
+                } catch (InvalidPackageException ex) {
+
+                    StringBuilder msg = new StringBuilder();
+
+                    msg.append("The package \"");
+                    msg.append(file.getPath());
+                    msg.append("\" is not a valid package! \n");
+                    msg.append(ex.getMessage());
+
+                    Util.showErrorDialog(null, msg.toString());
+                    logger.log(Level.INFO, msg.toString(), ex);
+
+                } catch (SPMDigestException ex) {
+
+                    StringBuilder msg = new StringBuilder();
+
+                    msg.append("The package \"");
+                    msg.append(file.getPath());
+                    msg.append("\" indcates an error. This could mean that the package has become corrupted.");
+
+                    Util.showErrorDialog(null, msg.toString());
+                    logger.log(Level.INFO, msg.toString(), ex);
+
+                }
+                
+            }
+                
+        };
+        
+        return readThread;
+        
+    }
+    
+    public Thread newReadThread(final String filename) {
+        return newReadThread(new File(filename));
     }
     
     /**

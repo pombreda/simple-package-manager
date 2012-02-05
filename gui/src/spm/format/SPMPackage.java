@@ -102,9 +102,9 @@ public final class SPMPackage {
                     msg.append("The file \"");
                     msg.append(file.getPath());
                     msg.append("\" does not exist!");
-
-                    Util.showErrorDialog(null, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
+                    
+                    logger.log(Level.WARNING, msg.toString(), ex);
+                    archive = new SPMPackageContainer();
 
                 } catch (IOException ex) {
 
@@ -114,9 +114,9 @@ public final class SPMPackage {
                     msg.append(file.getPath());
                     msg.append("\"! \n");
                     msg.append(ex.getMessage());
-
-                    Util.showErrorDialog(null, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
+                    
+                    logger.log(Level.WARNING, msg.toString(), ex);
+                    archive = new SPMPackageContainer();
 
                 } catch (InvalidPackageException ex) {
 
@@ -126,10 +126,10 @@ public final class SPMPackage {
                     msg.append(file.getPath());
                     msg.append("\" is not a valid package! \n");
                     msg.append(ex.getMessage());
-
-                    Util.showErrorDialog(null, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
-
+                    
+                    logger.log(Level.WARNING, msg.toString(), ex);
+                    archive = new SPMPackageContainer();
+                    
                 } catch (SPMDigestException ex) {
 
                     StringBuilder msg = new StringBuilder();
@@ -137,14 +137,14 @@ public final class SPMPackage {
                     msg.append("The package \"");
                     msg.append(file.getPath());
                     msg.append("\" indcates an error. This could mean that the package has become corrupted.");
-
-                    Util.showErrorDialog(null, msg.toString());
-                    logger.log(Level.INFO, msg.toString(), ex);
-
+                    
+                    logger.log(Level.WARNING, msg.toString(), ex);
+                    archive = new SPMPackageContainer();
+                    
                 }
                 
             }
-                
+            
         };
         
         return readThread;
@@ -468,6 +468,15 @@ public final class SPMPackage {
         
         return new SPMExecutor(update());
         
+    }
+    
+    /**
+     * Returns whether or not this {@code SPMPackage} is empty or not.
+     * 
+     * @return whether or not this {@code SPMPackage} is empty or not (contains no files).
+     */
+    public boolean isEmpty() {
+        return archive.isEmpty();
     }
     
     /**

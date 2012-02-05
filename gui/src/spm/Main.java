@@ -22,6 +22,7 @@ import java.awt.EventQueue;
 import javax.swing.UIManager;
 
 import spm.gui.PrimaryFrame;
+import spm.logging.SPMLogger;
 
 /**
  * Entry point of the program.
@@ -31,12 +32,6 @@ import spm.gui.PrimaryFrame;
 public final class Main {
 
     private final static Logger logger = Logger.getLogger(Main.class.getName());
-
-    /** XML log output file. */
-    public final static String XML_LOG_FILE = System.getProperty("user.home") + 
-                                              File.separator + 
-                                              Config.CMD_NAME +
-                                              ".log.xml";
     
     // TODO add logo to window frames
     // TODO create makefile for installation
@@ -44,38 +39,7 @@ public final class Main {
     // initialises the program
     private static void init() {
         
-        // initialise logger
-        Logger rootLogger = Logger.getLogger("");
-        rootLogger.setLevel(Level.CONFIG);
-        
-        // setup console log handler
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new SimpleFormatter());
-        rootLogger.addHandler(consoleHandler);
-        
-        try {
-        
-            // remove log file if it already exists
-            File xmlLog = new File(XML_LOG_FILE);
-            if (xmlLog.exists())
-                xmlLog.delete();
-            
-            // setup XML log handler
-            FileHandler file = new FileHandler(XML_LOG_FILE);
-            file.setFormatter(new XMLFormatter());
-            rootLogger.addHandler(file);
-        
-        } catch (IOException ex) {
-            
-            StringBuilder msg = new StringBuilder();
-            
-            msg.append("Cannot create XML log file \"");
-            msg.append(XML_LOG_FILE);
-            msg.append("\".");
-            
-            logger.log(Level.INFO, msg.toString(), ex);
-            
-        }
+        SPMLogger.init();
                 
         try {
             // set system look and feel

@@ -15,6 +15,7 @@ package spm;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.File;
 import java.net.*;
 import java.util.logging.*;
 
@@ -26,6 +27,12 @@ import java.util.logging.*;
 public final class Config {
     
     private final static Logger logger = Logger.getLogger(Config.class.getName());
+    
+    /** XML log output file. */
+    public final static String XML_LOG_FILE = System.getProperty("user.home") + 
+                                              File.separator + 
+                                              Config.CMD_NAME +
+                                              ".log.xml";
     
     /** name of the program. */
     public static final String CMD_NAME = "spm-gui";

@@ -121,7 +121,7 @@ public final class PrimaryFrame extends JFrame {
     private void updateValues() {
         
         // handle null package
-        if (packageArchive == null) { 
+        if (packageArchive == null || packageArchive.isEmpty()) { 
             
             // disable install interface
             txtPackage.setEnabled(false);

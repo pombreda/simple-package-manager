@@ -17,6 +17,8 @@ package spm.format.tar;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import spm.format.InvalidPackageException;
 

@@ -67,8 +67,7 @@ public final class RunDialog extends JDialog {
             
             String msg = "Installation files are missing from the package!";
             
-            showErrorDialog(parent, msg);
-            logger.log(Level.INFO, msg, ex);
+            logger.log(Level.WARNING, msg, ex);
             
         } catch (InvalidPackageException ex) {
             
@@ -79,8 +78,7 @@ public final class RunDialog extends JDialog {
             msg.append("\" is not valid! \n");
             msg.append(ex.getMessage());
             
-            showErrorDialog(parent, msg.toString());
-            logger.log(Level.INFO, msg.toString(), ex);
+            logger.log(Level.WARNING, msg.toString(), ex);
             
         } catch (IOException ex) {
             
@@ -91,8 +89,7 @@ public final class RunDialog extends JDialog {
             msg.append("\"! \n");
             msg.append(ex.getMessage());
             
-            showErrorDialog(parent, msg.toString());
-            logger.log(Level.INFO, msg.toString(), ex);
+            logger.log(Level.WARNING, msg.toString(), ex);
             
         }
         
@@ -121,8 +118,7 @@ public final class RunDialog extends JDialog {
             
             String msg = "Un-installation files are missing from the package!";
             
-            showErrorDialog(parent, msg);
-            logger.log(Level.INFO, msg, ex);
+            logger.log(Level.WARNING, msg, ex);
             
         } catch (InvalidPackageException ex) {
             
@@ -133,8 +129,7 @@ public final class RunDialog extends JDialog {
             msg.append("\" is not valid! \n");
             msg.append(ex.getMessage());
             
-            showErrorDialog(parent, msg.toString());
-            logger.log(Level.INFO, msg.toString(), ex);
+            logger.log(Level.WARNING, msg.toString(), ex);
             
         } catch (IOException ex) {
             
@@ -145,8 +140,7 @@ public final class RunDialog extends JDialog {
             msg.append("\"! \n");
             msg.append(ex.getMessage());
             
-            showErrorDialog(parent, msg.toString());
-            logger.log(Level.INFO, msg.toString(), ex);
+            logger.log(Level.WARNING, msg.toString(), ex);
             
         }
         
@@ -175,8 +169,7 @@ public final class RunDialog extends JDialog {
             
             String msg = "Update files are missing from the package!";
             
-            showErrorDialog(parent, msg);
-            logger.log(Level.INFO, msg, ex);
+            logger.log(Level.WARNING, msg.toString(), ex);
             
         } catch (InvalidPackageException ex) {
             
@@ -187,8 +180,7 @@ public final class RunDialog extends JDialog {
             msg.append("\" is not valid! \n");
             msg.append(ex.getMessage());
             
-            showErrorDialog(parent, msg.toString());
-            logger.log(Level.INFO, msg.toString(), ex);
+            logger.log(Level.WARNING, msg.toString(), ex);
             
         } catch (IOException ex) {
             
@@ -199,8 +191,7 @@ public final class RunDialog extends JDialog {
             msg.append("\"! \n");
             msg.append(ex.getMessage());
             
-            showErrorDialog(parent, msg.toString());
-            logger.log(Level.INFO, msg.toString(), ex);
+            logger.log(Level.WARNING, msg.toString(), ex);
             
         }
         

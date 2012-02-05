@@ -113,7 +113,6 @@ public final class SPMPackage {
                     msg.append("Cannot read from \"");
                     msg.append(file.getPath());
                     msg.append("\"! \n");
-                    msg.append(ex.getMessage());
                     
                     logger.log(Level.WARNING, msg.toString(), ex);
                     archive = new SPMPackageContainer();
@@ -125,7 +124,6 @@ public final class SPMPackage {
                     msg.append("The package \"");
                     msg.append(file.getPath());
                     msg.append("\" is not a valid package! \n");
-                    msg.append(ex.getMessage());
                     
                     logger.log(Level.WARNING, msg.toString(), ex);
                     archive = new SPMPackageContainer();

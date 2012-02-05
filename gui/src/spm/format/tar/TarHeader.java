@@ -382,7 +382,8 @@ public final class TarHeader {
 
                     msg.append("Header checksum for \"");
                     msg.append(getFileName());
-                    msg.append("\" indicates an error. Source checksum is ");
+                    msg.append("\" indicates an error. \n");
+                    msg.append("Source checksum is ");
                     msg.append(checksum);
                     msg.append(" the real calculate checksums are signed = ");
                     msg.append(signedSum);

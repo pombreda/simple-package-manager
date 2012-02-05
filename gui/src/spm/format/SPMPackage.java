@@ -219,8 +219,12 @@ public final class SPMPackage {
                                              InvalidPackageException, 
                                              SPMDigestException {
         
+        InputStream input = new BufferedInputStream(new FileInputStream(file));
+        
         this.file = file;
-        read(new BufferedInputStream(new FileInputStream(file)));
+        read(input);
+        
+        input.close();
         
     }
     
@@ -268,8 +272,14 @@ public final class SPMPackage {
      * @throws InvalidPackageException if this package has become corrupted.
      */
     public void write(final File file) throws IOException, InvalidPackageException {
+        
+        OutputStream output = new BufferedOutputStream(new FileOutputStream(file));
+        
         this.file = file;
-        write(new BufferedOutputStream(new FileOutputStream(file)));
+        write(output);
+        
+        output.close();
+        
     }
     
     /**

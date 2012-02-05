@@ -152,7 +152,13 @@ public final class SPMDigest extends Hashtable<String, SHA1> {
      * @throws SPMDigestException if the format is not correct (same as {@code sha1sum} utility).
      */
     public void read(final File file) throws FileNotFoundException, IOException, SPMDigestException {
-        read(new BufferedInputStream(new FileInputStream(file)));
+        
+        InputStream input = new BufferedInputStream(new FileInputStream(file));
+        
+        read(input);
+        
+        input.close();
+        
     }
     
     /**
@@ -207,7 +213,13 @@ public final class SPMDigest extends Hashtable<String, SHA1> {
      * @throws IOException upon failure to write to file.
      */
     public void write(final File file) throws FileNotFoundException, IOException {
-        write(new BufferedOutputStream(new FileOutputStream(file)));
+        
+        OutputStream output = new BufferedOutputStream(new FileOutputStream(file));
+        
+        write(output);
+        
+        output.close();
+        
     }
     
     /**

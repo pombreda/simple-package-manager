@@ -133,6 +133,9 @@ public final class PrimaryFrame extends JFrame {
             mitemUpdate.setEnabled(false);
             mitemUninstall.setEnabled(false);
             
+            txtPackage.setText("");
+            txtLicense.setText("");
+            
         } else { // set package values
             
             // enable install interface

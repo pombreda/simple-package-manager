@@ -76,15 +76,21 @@ public final class Util {
      * Displays a dialog indicating that the program is loading something.
      * 
      * @param parent owner frame of the loading dialog.
+     * @param thread the thread that is loading.
      * @param string the message to display to the user.
-     * @return the instance of the loading dialog that is created.
      */
-    public static LoadingDialog showLoadingDialog(final Frame parent, final String string) {
+    public static void showLoadingDialog(final Frame parent, final Thread thread, final String string) {
         
-        final LoadingDialog loading = new LoadingDialog(parent);
-        loading.setLoadingText(string);
-         
-        return loading;
+        LoadingDialog loadingDialog = new LoadingDialog(parent, thread);
+        loadingDialog.setLoadingText(string);
+        
+        // create and start the dialogs thread
+        Thread dialogThread = new Thread(loadingDialog);
+        dialogThread.start();
+        
+        // show loading dialog
+        if (!loadingDialog.isClosed())
+            loadingDialog.setVisible(true);
         
     }
     

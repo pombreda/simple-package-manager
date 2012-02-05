@@ -387,11 +387,9 @@ public final class PrimaryFrame extends JFrame {
         
         final SPMPackage archive = new SPMPackage();
         
-        final LoadingDialog loading = showLoadingDialog(this, "Loading " + file.getName());
-        
         // read package in separate thread
         final Frame parent = this;
-        Thread readThread = new Thread(new Runnable() {
+        Thread readThread = new Thread() {
         
             /** Runs the thread. */
             @Override
@@ -412,7 +410,6 @@ public final class PrimaryFrame extends JFrame {
 
                     showErrorDialog(parent, msg.toString());
                     logger.log(Level.INFO, msg.toString(), ex);
-                    return;
 
                 } catch (IOException ex) {
 
@@ -425,7 +422,6 @@ public final class PrimaryFrame extends JFrame {
 
                     showErrorDialog(parent, msg.toString());
                     logger.log(Level.INFO, msg.toString(), ex);
-                    return;
 
                 } catch (InvalidPackageException ex) {
 
@@ -438,7 +434,6 @@ public final class PrimaryFrame extends JFrame {
 
                     showErrorDialog(parent, msg.toString());
                     logger.log(Level.INFO, msg.toString(), ex);
-                    return;
 
                 } catch (SPMDigestException ex) {
 
@@ -450,23 +445,18 @@ public final class PrimaryFrame extends JFrame {
 
                     showErrorDialog(parent, msg.toString());
                     logger.log(Level.INFO, msg.toString(), ex);
-                    return;
 
                 }
                 
-                loading.close();
-                
             }
                 
-        });
+        };
         
         // start the thread that reads the package
         readThread.setPriority(Thread.MAX_PRIORITY);
         readThread.start();
         
-        // show loading dialog
-        if (!loading.isClosed())
-            loading.setVisible(true);
+        showLoadingDialog(this, readThread, "Loading " + file.getName());
         
         // update the package that this frame represents
         packageArchive = archive;

@@ -16,25 +16,34 @@ package spm.gui;
  */
 
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- * Displays a loading dialog frame while an archive is being read.
+ * Displays a loading dialog while a a thread is running.
  * 
  * @author Zachary Scott <cthug.zs@gmail.com>
  */
-public class LoadingDialog extends JDialog {
+public class LoadingDialog extends JDialog implements Runnable {
 
+    // the thread that is loading
+    private final Thread thread;
+    
     /** 
      * Creates new form {@code LoadingDialog}.
      *
+     * @param parent - the owner parent frame of this {@code LoadingDialog}.
+     * @param thread - the thread that is loading.
      */
-    public LoadingDialog(Frame parent) {
+    public LoadingDialog(final Frame parent, final Thread thread) {
         
         super(parent, true);
         
         initComponents();
         setLocationRelativeTo(parent);
+        
+        this.thread = thread;
         
     }
 
@@ -52,11 +61,28 @@ public class LoadingDialog extends JDialog {
     private boolean closedFlag = false;
     
     /**
+     * Waits for the loading thread, and then closes the loading dialog.
+     * 
+     */
+    @Override
+    public void run() {
+        
+        try {
+            thread.join();
+        } catch (InterruptedException ex) {
+        }
+        
+        close();
+        
+    }
+    
+    /**
      * Closes this {@code LoadingDialog}.
      * 
      */
-    public synchronized void close() {
+    public void close() {
         dispose();
+        thread.stop();
         closedFlag = true;
     }
     
@@ -80,8 +106,13 @@ public class LoadingDialog extends JDialog {
         progressBar = new javax.swing.JProgressBar();
         lblLoading = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Loading ...");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         progressBar.setIndeterminate(true);
 
@@ -110,6 +141,10 @@ public class LoadingDialog extends JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        close();
+    }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblLoading;

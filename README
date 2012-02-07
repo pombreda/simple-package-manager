@@ -1,11 +1,11 @@
-                     
-                     .oooooooo8   8ooooooooo.  oooo.   .oooo 
-                     88(          "88(    )88  "8888o  o888" 
-                     '888oooooo.   888oooo88'   88 888o8 88  
-                             )88   88           88  888  88  
-                     o88oooo888'  d88b         d88b '8' d88b 
 
-                                By Zachary Scott 
+                     .oooooooo8   8ooooooooo.  oooo.   .oooo
+                     88(          "88(    )88  "8888o  o888"
+                     '888oooooo.   888oooo88'   88 888o8 88
+                             )88   88           88  888  88
+                     o88oooo888'  d88b         d88b '8' d88b
+
+                                By Zachary Scott
 
 Simple Package Manager
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -14,8 +14,8 @@ Simple Package Manager (SPM), as the name suggests is a simple package manager.
 It is intended to operate in similar way to existing package managers (e.g apt,
 dpkg, Pacman, etc). Instead of supporting a centralised package repository, SPM
 allows remote packages to be downloaded and installed automatically given thier
-URL (Universal Resource Locator). This allows a developer to package and 
-distribute their software via a package management system without having to 
+URL (Universal Resource Locator). This allows a developer to package and
+distribute their software via a package management system without having to
 worry about the many different formats and Linux distrbution repositories.
 
 How to Install
@@ -34,6 +34,7 @@ spm-install    Installs a package.
 spm-uninstall  Un-installs a package.
 spm-update     Updates an existing package.
 spm-get        Manages remote packages.
+spm-accept     Automatically accepts the licensing terms and conditions.
 
 Command Usage
 =============
@@ -41,15 +42,15 @@ Command Usage
 spm-create
 ----------
 
-Usage: spm-create <package name> <install script> <un-install script> 
+Usage: spm-create <package name> <install script> <un-install script>
               <build script> <license file> [package file ...]
 
-Note: 
+Note:
 
  * The install, uninstall, build script and license files are nessesary, but
-   they can be replaced with a '-', which creates an empty file. 
+   they can be replaced with a '-', which creates an empty file.
 
- * The package name will be suffixed with the ".spm" extension if it is not 
+ * The package name will be suffixed with the ".spm" extension if it is not
    already.
 
 
@@ -60,7 +61,7 @@ Usage: spm-install <package file ...>
 
 Note:
 
- * You may require root privileges (depending on the install script for the 
+ * You may require root privileges (depending on the install script for the
    given package).
 
 
@@ -71,7 +72,7 @@ Usage: spm-uninstall <package file ...>
 
 Note:
 
- * You may require root privileges (depending on the uninstall script for the 
+ * You may require root privileges (depending on the uninstall script for the
    given package).
 
 
@@ -82,10 +83,10 @@ Usage: spm-update <package file ...>
 
 Note:
 
- * The update is performed by running the uninstall and then re-installs the 
+ * The update is performed by running the uninstall and then re-installs the
    package.
 
- * You may require root privileges (depending on the uninstall script for the 
+ * You may require root privileges (depending on the uninstall script for the
    given package).
 
 
@@ -102,22 +103,34 @@ Mode:
     delete    - delete the given package file (not un-install).
     purge     - delete all downloaded packages (in ~/.spm).
 
-Note: 
+Note:
 
  * The curl program is used to provide this functionality and therefore the same
    protocols and URL formats are supported.
 
- * Downloaded packages are kept in under .spm/ in the current users home 
+ * Downloaded packages are kept in under .spm/ in the current users home
    directory.
 
- * You may require root privileges (depending on the install script for the 
+ * You may require root privileges (depending on the install script for the
    given package).
+
+spm-accept
+----------
+
+Usage: spm-accept | spm-install <package file ...>
+       spm-accept | spm-update <package file ...>
+       etc.
+
+Note:
+
+ * The program simply prints "n<line break> y<line break>" repeatedly to accept
+   the licensing terms and conditions.
 
 .spm Format
 ===========
 
-The .spm file format is simply a gzipped archive with a special filesystem 
-heirarchy. Their are four special purpose file (install, uninstall, build and 
+The .spm file format is simply a gzipped archive with a special filesystem
+heirarchy. Their are four special purpose file (install, uninstall, build and
 license) which are described below, as-well as a directory call data that holds
 the packages files. These files are as follows:
 
@@ -130,20 +143,20 @@ build      This is an executable file that builds the package.
 license    This file contains the licensing terms and conditions of the package
            This is set by the spm-create command when it makes a package.
 
-The first three of these files can be any executable code including scripts or 
+The first three of these files can be any executable code including scripts or
 compiled programs.
 
 Development
 ~~~~~~~~~~~
 
 The current code base for SPM is tiny (only ~700 lines!), and so developers are
-not required at the moment. However bug reports and fixes are welcomed and 
-should be submitted using the issue tracking system provided on the projects 
+not required at the moment. However bug reports and fixes are welcomed and
+should be submitted using the issue tracking system provided on the projects
 google code website (http://http://code.google.com/p/simple-package-manager/).
 
-Help would be greatly appreciated in creating and managing the small SPM 
-package repository (http://code.google.com/p/spm-package-repository/). Any 
-packages should be sent to Zachary Scott at cthug.zs@gmail.com. See the 
+Help would be greatly appreciated in creating and managing the small SPM
+package repository (http://code.google.com/p/spm-package-repository/). Any
+packages should be sent to Zachary Scott at cthug.zs@gmail.com. See the
 aforementioned website for more information.
 
 Contact

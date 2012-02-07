@@ -28,10 +28,10 @@ setTrue() {
 setFalse() {
     $1=1
 }
-isTrue() { 
+isTrue() {
     return `test "$1" -eq 0`
 }
-isFalse() { 
+isFalse() {
     return `test "$1" -ne 0`
 }
 
@@ -116,7 +116,7 @@ openPackage() {
     cd "$TMP_DIR"
 
     # extract package to temporary directory
-    gunzip -c "$package" | tar x 
+    gunzip -c "$package" | tar x
 
     # check the integrity of the files
     sha1sum -c digest
@@ -137,28 +137,28 @@ closePackage() {
 }
 
 # Runs the given file in a package
-# runPackage [files to run ...]
+# runPackage <file to run> [file arguments]
 runPackage() {
 
     cd "$TMP_DIR/data"
 
     # execute given files in the package
-    while [ $# -gt 0 ]; do
+    if [ $# -gt 0 ]; then
 
-        ../$1
+        cmd="../$1"
+        shift
+
+        $cmd "$@"
         if isFalse $?; then
             false ; return
         fi
 
-        shift
-
-    done
+    fi
 
     cd - > /dev/null
 
-    true ; return 
-    
+    true ; return
+
 }
 
 # EOF
-

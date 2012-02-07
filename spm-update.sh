@@ -21,7 +21,7 @@
 # Prints usage information.
 usage() {
     echo "
-Usage: $pname <package file ...>
+Usage: $pname <package file> [package options ...]
 " >&2
     true ; exit
 }
@@ -29,23 +29,38 @@ Usage: $pname <package file ...>
 # ensure that there is enough arguments
 [ $# -lt 1 ] && usage
 
-# update each package
-for arg; do
-    
-    checkRegFile "$arg" || { false ; exit ; }
-    openPackage "$arg" || { false ; exit ; }
+checkRegFile "$1" || { false ; exit ; }
+openPackage "$1" || { false ; exit ; }
+shift
 
-    runPackage uninstall install
-    if isTrue $?; then
-        echo "Successfully updated!" > /dev/tty
-    else
-        error "Update failed!" > /dev/tty
-        false ; exit
-    fi
+# uninstall the program
+runPackage uninstall "$@"
+if isTrue $?; then
+    echo "Package un-installed successfully!" > /dev/tty
+else
+    error "Package un-installation failed!"
+    false ; exit
+fi
 
-    closePackage
+# re-build the package
+runPackage build "$@"
+if isTrue $?; then
+    echo "Package built successfully!" > /dev/tty
+else
+    error "Package build failed!"
+    false ; exit
+fi
 
-done
+# re-install the package
+runPackage install "$@"
+if isTrue $?; then
+    echo "Package installed successfully!" > /dev/tty
+else
+    error "Package installation failed!"
+    false ; exit
+fi
+
+closePackage
 
 # EOF
 

@@ -21,14 +21,14 @@
 # Prints usage information.
 usage() {
     echo "
-Usage: $pname <package file ...>
+Usage: $pname <package file> [package options ...]
 " >&2
     true ; exit
 }
 
 # Prompts user to view and accepts the terms of the packages license.
 handleLicense() {
-   
+
     local license
 
     # get license file from archive
@@ -54,25 +54,31 @@ handleLicense() {
 # ensure that there is enough arguments
 [ $# -lt 1 ] && usage
 
-# install each package
-for arg; do
+# open the package
+checkRegFile "$1" || { false ; exit ; }
+openPackage "$1" || { false ; exit ; }
+shift
 
-    checkRegFile "$arg" || { false ; exit ; }
-    openPackage "$arg" || { false ; exit ; }
+handleLicense
 
-    handleLicense
-    
-    runPackage build install
-    if isTrue $?; then
-        echo "Successfully installed!" > /dev/tty
-    else
-        error "Installation failed!" > /dev/tty
-        false ; exit
-    fi
+# build the package
+runPackage build "$@"
+if isTrue $?; then
+    echo "Package built successfully!" > /dev/tty
+else
+    error "Package build failed!"
+    false ; exit
+fi
 
-    closePackage
+# install the package
+runPackage install "$@"
+if isTrue $?; then
+    echo "Package installed successfully!" > /dev/tty
+else
+    error "Package installation failed!"
+    false ; exit
+fi
 
-done
+closePackage
 
 # EOF
-

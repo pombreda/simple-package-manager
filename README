@@ -57,7 +57,7 @@ Note:
 spm-install
 -----------
 
-Usage: spm-install <package file ...>
+Usage: spm-install <package file> [package options ...]
 
 Note:
 
@@ -68,7 +68,7 @@ Note:
 spm-uninstall
 -------------
 
-Usage: spm-uninstall <package file ...>
+Usage: spm-uninstall <package file> [package options ...]
 
 Note:
 
@@ -79,7 +79,7 @@ Note:
 spm-update
 ----------
 
-Usage: spm-update <package file ...>
+Usage: spm-update <package file> [package options ...]
 
 Note:
 
@@ -93,15 +93,39 @@ Note:
 spm-get
 -------
 
-Usage: spm-get <mode> <package url ...>
+Usage: spm-get <mode> [mode options ...]
 
 Mode:
-    get       - only download package (to ~/.spm).
-    install   - install the package.
+
+    get - only download package (to $GET_DIR).
+        spm-get get <package url ...>
+
+    install - install the package.
+        spm-get install <package url> [package options ...]
+
+    install-all - install all of the given packages (without arguments)
+        spm-get install-all <package url ...>
+
     uninstall - un-install the package.
-    update    - update an existing package.
-    delete    - delete the given package file (not un-install).
-    purge     - delete all downloaded packages (in ~/.spm).
+        spm-get uninstall [package url] [package options ...]
+
+    uninstall-all - uninstall all of the given packages (without arguments)
+        spm-get uninstall-all <package url ...>
+
+    update - update an existing package.
+        spm-get update [package url] [package options ...]
+
+    update-all - update all given packages (without arguments)
+        spm-get update-all <package url ...>
+
+    list - list all of the downloaded packages.
+        spm-get list
+
+    delete - delete the given package file (not un-install).
+        spm-get delete <package url ...>
+
+    purge - delete all downloaded packages (in $GET_DIR).
+        spm-get purge
 
 Note:
 
@@ -149,19 +173,19 @@ compiled programs.
 Development
 ~~~~~~~~~~~
 
-The current code base for SPM is tiny (only ~700 lines!), and so developers are
+The current code base for SPM is small (~4500 lines), and so developers are
 not required at the moment. However bug reports and fixes are welcomed and
 should be submitted using the issue tracking system provided on the projects
 google code website (http://http://code.google.com/p/simple-package-manager/).
 
 Help would be greatly appreciated in creating and managing the small SPM
 package repository (http://code.google.com/p/spm-package-repository/). Any
-packages should be sent to Zachary Scott at cthug.zs@gmail.com. See the
+packages should be sent to Zachary Scott at zscott@zscott-dev.info. See the
 aforementioned website for more information.
 
 Contact
 ~~~~~~~
 
 Name:  Zachary Scott
-Email: cthug.zs@gmail.com
+Email: zscott@zscott-dev.info
 

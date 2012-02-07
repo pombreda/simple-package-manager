@@ -32,6 +32,7 @@ Mode:
     install   - install the package.
     uninstall - un-install the package.
     update    - update an existing package.
+    list      - list all of the downloaded packages
     delete    - delete the given package file (not un-install).
     purge     - delete all downloaded packages (in $GET_DIR).
 " >&2
@@ -135,6 +136,21 @@ case $mode in
 
         ;;
 
+	# list all of the downloaded packages
+	list)
+	
+		[ $# -gt 0 ] && usage
+		
+		packages=`ls "$GET_DIR"`
+		
+		if [ -z "$packages" ]; then
+			echo "There are no packages!"
+		else
+			echo "$packages"
+		fi
+	
+		;;
+
     # delete the given package
     delete)
 
@@ -160,7 +176,7 @@ case $mode in
 
         ask "Are you sure you want to delete all downloaded packages?"
         if isTrue $?; then
-            rm "$GET_DIR/*"
+            rm "$GET_DIR"/*
         fi
 
         ;;
@@ -185,4 +201,3 @@ else
 fi
 
 # EOF
-

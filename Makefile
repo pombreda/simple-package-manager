@@ -16,13 +16,14 @@
 # distribution archive name
 DIST_NAME=spm-0.1.1-rev2
 
-.PHONY: all clean spm-dist dist install
+.PHONY: all clean spm-dist dist install test
 
 all: bin/spm-create bin/spm-get bin/spm-install bin/spm-uninstall bin/spm-update bin/spm-accept
 
 clean:
 	-yes | rm bin/*
 	-yes | rm $(DIST_NAME).spm $(DIST_NAME).tar.gz
+	make -Ctest clean
 
 spm-dist: all install.sh uninstall.sh build.sh
 	bin/spm-create $(DIST_NAME).spm install.sh uninstall.sh build.sh COPYING README spm-*.sh Makefile
@@ -37,6 +38,10 @@ dist: spm-dist
 
 install: all spm-dist
 	bin/spm-install $(DIST_NAME).spm
+
+# will not work in distribution archive
+test:
+	make -Ctest
 
 bin/spm-common.sh: spm-common.sh
 	cp spm-common.sh bin/spm-common.sh
